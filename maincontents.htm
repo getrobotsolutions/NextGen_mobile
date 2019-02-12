@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html" charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=10"/>
+
+    <script language="JavaScript" type="text/javascript" src="Scripts/BaseCommand.js"></script>
+    <script language="JavaScript" type="text/javascript" src="Scripts/BaseEvent.js"></script>
+    <script language="JavaScript" type="text/javascript" src="Scripts/LogConsole.js"></script>
+    <script language="JavaScript" type="text/javascript" src="Scripts/Language.js"></script>
+    <script language="JavaScript" type="text/javascript" src="Scripts/custom.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="maincontents.js"></script>
+    <script src="boots/js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" href="boots/css/bootstrap.min.css">
+    
+    <link href="css/Main.css" rel="stylesheet" type="text/css"/>
+</head>
+
+
+<body  onbeforeunload="JSUnload()" ondragstart="return false;" ondrop="return false;" style="-ms-user-select:none;" oncontextmenu="return false;">
+<div class="config" onclick="FC_ContentsCall('Config')">
+    
+</div>
+<img src="assets/home.png" onclick="location.href ='main.htm'" style="z-index: 1;margin-top: -100px;">
+
+<script type="text/javascript">
+  if (!readCookie("NavigationState")) {
+    writeCookie("NavigationState", true, 30);
+  }
+  /*function GetJoke(){
+    var temp=Math.floor((Math.random() * 6) + 1);
+    //PlaySpeech(jokes[temp]);
+    //alert(jokes[temp]);
+  }
+  var initialJokeTime=setTimeout(GetJoke,30000);
+
+  $(document).click(function(event) {
+      //clearTimeout( initialJokeTime );
+      //initialJokeTime=setTimeout(GetJoke,120000);
+  });*/
+
+</script>
+<script>
+        //ChangeLanguage('en-us');
+        $(document).ready(function() {
+            var barcode="";
+            $(document).keydown(function(e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if(code === 13)// Enter key hit
+                {
+                    //alert(barcode);
+                    barcode = barcode.split('').join('');
+                    //barcode = barcode.split('┼').join('');
+                    var temp=barcode;
+                    var array = barcode.split("Ü");
+                    //alert(array);
+                    var csi = array[0].toString().toLowerCase();
+                    var bnumber = array[1].toString().toLowerCase();
+                    var fname = array[2].toString().toLowerCase();
+                    var lname = array[3].toString().toLowerCase();
+                    
+                    var dataString =  { 'CsiMarker' : csi, 'BadgeNumber' : bnumber, 'FirstName' :fname, 'LastName' : lname};
+                    $.ajax({
+                      url:"https://robotaisolutions.com/amgen/cannonApi.php",
+                      type:"post",
+                      data : dataString,
+                      
+                        success: function(data) {
+                          console.log(data);
+                          if(data.response=='success'){
+                            PlaySpeech("Hello " + fname + " " + lname + ", welcome to the  NextGen booth.");
+                            barcode = "";
+                            array = null;
+                            location.href = "main.htm";
+                          }
+                        }
+                    });
+                    
+                    
+                    
+                }
+                else
+                {
+                    barcode=barcode+String.fromCharCode(code);
+                }
+                /*var csi = "test0";//array[0].toString().toLowerCase();
+                    var bnumber = "test1";//array[1].toString().toLowerCase();
+                    var fname = "test2";//array[2].toString().toLowerCase();
+                    var lname = "test3";//array[3].toString().toLowerCase();
+                var dataString =  { 'CsiMarker' : csi, 'BadgeNumber' : bnumber, 'FirstName' :fname, 'LastName' : lname};
+                    $.ajax({
+                      url:"https://robotaisolutions.com/amgen/cannonApi.php",
+                      type:"post",
+                      data : dataString,
+                      dataType: 'JSON',
+                      
+                      
+                        success: function(data) {
+                          console.log(data);
+                          if(data.response=='error'){
+                            //alert("Welcome back");
+                            
+                          }
+                         
+                        }
+                    });*/
+                
+            });
+        });
+    </script>
+</body>
+</html>

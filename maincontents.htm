@@ -19,10 +19,21 @@
 
 
 <body  onbeforeunload="JSUnload()" ondragstart="return false;" ondrop="return false;" style="-ms-user-select:none;" oncontextmenu="return false;">
-<div class="config" onclick="FC_ContentsCall('Config')">
-    
-</div>
-<img src="assets/home.png" onclick="location.href ='main.htm'" style="z-index: 1;margin-top: -100px;">
+<header >
+    <div class="config" onclick="FC_ContentsCall('Config')">
+        <img src="assets/config.png" height="100">
+    </div>
+    <!--<div class="img-menu" onclick="FC_ContentsCall('Menu')"></div>
+    <div class="img-home" onclick="FC_ContentsCall('Home')"></div>-->
+</header>
+
+
+<section class="main-content">
+    <div class="wrap" style="text-align: center; padding-top: 140px ">
+        <iframe src="https://appetize.io/embed/hbtr40dc07mfqej1c1nc71azyw?device=ipadair2&scale=100&autoplay=true&orientation=portrait&deviceColor=black&screenOnly=true&xdocMsg=true"  frameborder="0" scrolling="no" width="768px" height="1024px"></iframe>
+
+    </div>
+</section>
 
 <script type="text/javascript">
   if (!readCookie("NavigationState")) {
@@ -72,7 +83,7 @@
                             PlaySpeech("Hello " + fname + " " + lname + ", welcome to the  NextGen booth.");
                             barcode = "";
                             array = null;
-                            location.href = "main.htm";
+                            //location.href = "main.htm";
                           }
                         }
                     });
